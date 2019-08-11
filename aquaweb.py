@@ -27,6 +27,7 @@ import socket
 import os
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 import cgi
+import urllib
 
 
 # Configuration
