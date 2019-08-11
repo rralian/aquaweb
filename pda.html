@@ -1,0 +1,75 @@
+<html>
+
+<head>
+  <title>Pool Controller</title>
+  <script language="Javascript">
+
+    if (window.XMLHttpRequest) {
+      var xmlHttpReqKey = new XMLHttpRequest();
+      var xmlHttpReqScreen = new XMLHttpRequest();
+    } else {
+      var xmlHttpReqKey = new ActiveXObject("Microsoft.XMLHTTP");
+      var xmlHttpReqScreen = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    function screen() {
+      xmlhttpPost(xmlHttpReqScreen, "/screen.cgi", "", "screen");
+    }
+
+    function sendkey(key) {
+      xmlhttpPost(xmlHttpReqKey, "/key.cgi", "key=" + key);
+    }
+
+    function xmlhttpPost(xmlReq, strURL, params, update) {
+      xmlReq.open('POST', strURL, true);
+      xmlReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xmlReq.send(params);
+      if (update != "") {
+        xmlReq.onreadystatechange = function () {
+          if (xmlReq.readyState == 4) {
+            updatepage(xmlReq.responseText, update);
+          }
+        }
+      }
+      xmlReq.send();
+    }
+
+    function updatepage(str, div) {
+      document.getElementById(div).innerHTML = str;
+      setTimeout(window[div](), 250);
+    }
+  </script>
+</head>
+
+<body onload="screen();">
+  <table>
+    <tr>
+      <td style="border:1px solid black;">
+        <font size="+2">
+          <div id="screen"></div>
+        </font>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <table>
+          <tr>
+            <td align="left"><button onclick="sendkey('back');">Back</button</td> <td align="center"><button
+                  onclick="sendkey('up');">Up</button></td>
+            <td align="right"><button>&nbsp;</button></td>
+          </tr>
+          <tr>
+            <td align="left">&nbsp;</td>
+            <td align="center"><button onclick="sendkey('select');">Select</button></td>
+            <td align="right">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="left"><button onclick="sendkey('pgup');">1</button></td>
+            <td align="center"><button onclick="sendkey('down');">Down</button></td>
+            <td align="right"><button onclick="sendkey('pgdn');">2</button></td>
+          </tr>
+        </table>
+  </table>
+</body>
+
+</html>

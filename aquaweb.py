@@ -111,21 +111,23 @@ SQUAREHTML = "<html><head><title>Pool Controller</title>" + JAVASCRIPT + """
 """
 
 
-PDAHTML = "<html><head><title>Pool Controller</title>" + JAVASCRIPT + """
-</head>
-<body onload="screen();">
-<table>
-<tr><td style="border:1px solid black;"><font size="+2"><div id="screen"></div></font></td></tr>
-<tr><td>
-  <table>
-    <tr><td align="left"><button onclick="sendkey('back');">Back</button</td><td align="center"><button onclick="sendkey('up');">Up</button></td><td align="right"><button>&nbsp;</button></td></tr>
-    <tr><td align="left">&nbsp;</td><td align="center"><button onclick="sendkey('select');">Select</button></td><td align="right">&nbsp;</td></tr>
-    <tr><td align="left"><button onclick="sendkey('pgup');">1</button></td><td align="center"><button onclick="sendkey('down');">Down</button></td><td align="right"><button onclick="sendkey('pgdn');">2</button></td></tr>
-  </table>
-</table>
-</body>
-</html>
-"""
+# PDAHTML = "<html><head><title>Pool Controller</title>" + JAVASCRIPT + """
+# </head>
+# <body onload="screen();">
+# <table>
+# <tr><td style="border:1px solid black;"><font size="+2"><div id="screen"></div></font></td></tr>
+# <tr><td>
+#   <table>
+#     <tr><td align="left"><button onclick="sendkey('back');">Back</button</td><td align="center"><button onclick="sendkey('up');">Up</button></td><td align="right"><button>&nbsp;</button></td></tr>
+#     <tr><td align="left">&nbsp;</td><td align="center"><button onclick="sendkey('select');">Select</button></td><td align="right">&nbsp;</td></tr>
+#     <tr><td align="left"><button onclick="sendkey('pgup');">1</button></td><td align="center"><button onclick="sendkey('down');">Down</button></td><td align="right"><button onclick="sendkey('pgdn');">2</button></td></tr>
+#   </table>
+# </table>
+# </body>
+# </html>
+# """
+
+PDAHTML = urllib.urlopen("./pda.html").read()
 
 INDEXHTML = ""
 
