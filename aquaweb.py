@@ -128,7 +128,8 @@ SQUAREHTML = "<html><head><title>Pool Controller</title>" + JAVASCRIPT + """
 # </html>
 # """
 
-PDAHTML = urllib.urlopen("./pda.html").read()
+pdahtmlfile = os.path.join(os.path.dirname(__file__), 'pda.html')
+PDAHTML = urllib.urlopen(pdahtmlfile).read()
 
 INDEXHTML = ""
 
