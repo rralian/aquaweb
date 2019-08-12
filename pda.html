@@ -4,49 +4,53 @@
   <title>Pool Controller</title>
   <script language="Javascript">
 
-    if (window.XMLHttpRequest) {
-      var xmlHttpReqKey = new XMLHttpRequest();
-      var xmlHttpReqScreen = new XMLHttpRequest();
-    } else {
-      var xmlHttpReqKey = new ActiveXObject("Microsoft.XMLHTTP");
-      var xmlHttpReqScreen = new ActiveXObject("Microsoft.XMLHTTP");
-    }
+  function sendKey( key ) {
+    fetch( '/key.cgi', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: 'key=' + key
+    } );
+  }
 
-    function screen() {
-      xmlhttpPost(xmlHttpReqScreen, "/screen.cgi", "", "screen");
-    }
+  function init() {
+    let statusMessage = '';
 
-    function sendkey(key) {
-      xmlhttpPost(xmlHttpReqKey, "/key.cgi", "key=" + key);
-    }
-
-    function xmlhttpPost(xmlReq, strURL, params, update) {
-      xmlReq.open('POST', strURL, true);
-      xmlReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xmlReq.send(params);
-      if (update != "") {
-        xmlReq.onreadystatechange = function () {
-          if (xmlReq.readyState == 4) {
-            updatepage(xmlReq.responseText, update);
-          }
-        }
+    const updateBody = str => {
+      if ( str && str != statusMessage ) {
+        statusMessage = str;
+        document.getElementById('screen').innerHTML = str;
       }
-      xmlReq.send();
+      setTimeout(getBody(), 250);
     }
-
-    function updatepage(str, div) {
-      document.getElementById(div).innerHTML = str;
-      setTimeout(window[div](), 250);
-    }
+    const getBody = () => {
+      fetch('/screen.cgi').then(res => res.text()).then(data => updateBody(data));
+    };
+    getBody();
+  }
   </script>
 </head>
 
-<body onload="screen();">
+<body onload="init()">
   <table>
     <tr>
       <td style="border:1px solid black;">
         <font size="+2">
-          <div id="screen"></div>
+<div id="screen">
+<pre>SUN  3:25PM
+105`     93`
+<span style="background-color: #FFFF00"><b>
+POOL MODE     ON</b></span>
+POOL HEATER  OFF
+SPA MODE     OFF
+SPA HEATER   OFF
+MENU
+EQUIPMENT ON/OFF
+
+
+</pre>
+</div>
         </font>
       </td>
     </tr>
@@ -55,7 +59,7 @@
         <table>
           <tr>
             <td align="left"><button onclick="sendkey('back');">Back</button</td> <td align="center"><button
-                  onclick="sendkey('up');">Up</button></td>
+                  onclick="sendkey2('up');">Up</button></td>
             <td align="right"><button>&nbsp;</button></td>
           </tr>
           <tr>
