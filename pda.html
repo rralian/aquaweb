@@ -25,7 +25,12 @@
       setTimeout(getBody(), 250);
     }
     const getBody = () => {
-      fetch('/screen.cgi').then(res => res.text()).then(data => updateBody(data));
+      fetch('/screen.cgi', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(res => res.text()).then(data => updateBody(data));
     };
     getBody();
   }
@@ -58,19 +63,19 @@ EQUIPMENT ON/OFF
       <td>
         <table>
           <tr>
-            <td align="left"><button onclick="sendkey('back');">Back</button</td> <td align="center"><button
-                  onclick="sendkey2('up');">Up</button></td>
+            <td align="left"><button onclick="sendKey('back');">Back</button</td> <td align="center"><button
+                  onclick="sendKey('up');">Up</button></td>
             <td align="right"><button>&nbsp;</button></td>
           </tr>
           <tr>
             <td align="left">&nbsp;</td>
-            <td align="center"><button onclick="sendkey('select');">Select</button></td>
+            <td align="center"><button onclick="sendKey('select');">Select</button></td>
             <td align="right">&nbsp;</td>
           </tr>
           <tr>
-            <td align="left"><button onclick="sendkey('pgup');">1</button></td>
-            <td align="center"><button onclick="sendkey('down');">Down</button></td>
-            <td align="right"><button onclick="sendkey('pgdn');">2</button></td>
+            <td align="left"><button onclick="sendKey('pgup');">1</button></td>
+            <td align="center"><button onclick="sendKey('down');">Down</button></td>
+            <td align="right"><button onclick="sendKey('pgdn');">2</button></td>
           </tr>
         </table>
   </table>
